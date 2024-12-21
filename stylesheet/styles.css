@@ -1,0 +1,17 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #001f3f; /* Deep blue color */
+    color: white;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: 100vh;
+    padding: 20px; 
+}
+
+.main-text {
+    text-align: left;
+    font-family: 'Oswald', sans-serif;
+    font-size: 40px;
+}
