@@ -1,26 +1,63 @@
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Oswald', sans-serif;
     background-color: #001f3f; /* Deep blue color */
     color: white;
     display: flex;
+    flex-direction: column;
     height: 100vh;
     padding: 20px; 
+    gap: 10px;
 }
 
 ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
+    padding-right: 5%;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+div {
+    padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+    border-style: solid;
 }
 
 .main-text {
     text-align: left;
-    font-family: 'Oswald', sans-serif;
     font-size: 25px;
+    background-color: transparent;
+    transition: background-color 0.3s, color 0.3s, font-size 0.3s; /* Add transitions for smooth animation */
+}
+
+.main-text:hover, .main-text:focus {
+    background-color: white;
+    color: black;
+    font-size: 40px; /* Hover effect for main-text */
+}
+
+.main-text:focus {
+    outline: none; /* Remove focus outline */
 }
 
 #head-text {
-    font-family: 'Oswald', sans-serif;
-    font-size: 50px;
+    font-size: 40px;
+    background-color: transparent;
+    transition: background-color 0.3s, color 0.3s, font-size 0.3s; /* Add transitions for smooth animation */
+}
+
+#head-text:hover, #head-text:focus {
+    background-color: white;
+    color: black;
+    font-size: 50px; /* Hover effect for head-text */
+}
+
+#head-text:focus {
+    outline: none; /* Remove focus outline */
 }
