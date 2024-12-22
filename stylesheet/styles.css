@@ -4,14 +4,23 @@ body {
     background-color: #001f3f; /* Deep blue color */
     color: white;
     display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
     height: 100vh;
     padding: 20px; 
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 
 .main-text {
     text-align: left;
     font-family: 'Oswald', sans-serif;
-    font-size: 40px;
+    font-size: 25px;
+}
+
+#head-text {
+    font-family: 'Oswald', sans-serif;
+    font-size: 50px;
 }
