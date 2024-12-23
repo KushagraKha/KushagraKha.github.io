@@ -61,3 +61,52 @@ div {
 #head-text:focus {
     outline: none; /* Remove focus outline */
 }
+
+#editor {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    width: 90%;
+    height: 300px;
+    margin: 20px auto;
+    padding: 10px;
+    font-size: 16px;
+    font-family: monospace;
+    text-align: left;
+    border: none;
+    background-color: black;
+    color: white;
+    overflow-y: auto;
+}
+
+#runButton {
+    padding: 10px 20px;
+    margin: 10px auto;
+    font-size: 18px;
+    font-family: inherit;
+    background-color: #0074D9; /* Blue button */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#runButton:hover {
+    background-color: #0051a3; /* Darker blue */
+    transform: scale(1.05); /* Slight zoom on hover */
+}
+
+#output {
+    width: 90%;
+    margin: 10px auto;
+    padding: 10px;
+    font-family: monospace;
+    background: black;
+    color: white;
+    border: 2px solid #ddd;
+    text-align: left;
+    border-radius: 5px;
+    min-height: 50px;
+    white-space: pre-wrap;
+    overflow-y: auto;
+}
