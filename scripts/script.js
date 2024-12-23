@@ -1,30 +1,32 @@
-
-document.getElementById("editor").addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-        event.preventDefault(); // Prevent the default Enter behavior (new div creation)
-        const editor = event.target;
-
-        // Get the current caret position
-        const selection = window.getSelection();
-        const range = selection.getRangeAt(0);
-
-        // Insert a newline at the caret position
-        const newlineNode = document.createTextNode("\n");
-        range.insertNode(newlineNode);
-
-        // Move the caret to the end of the newline
-        range.setStartAfter(newlineNode);
-        range.setEndAfter(newlineNode);
-        selection.removeAllRanges();
-        selection.addRange(range);
-    }
-});
-
-
 async function initializePythonPlayground() {
     const editor = document.getElementById("editor");
     const output = document.getElementById("output");
     const runButton = document.getElementById("runButton");
+
+    // Check if the editor element exists
+    if (!editor || !output || !runButton) {
+        console.log("Python Playground elements not found. Skipping initialization.");
+        return;
+    }
+
+    // Prevent new div creation when pressing Enter
+    editor.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault(); // Prevent the default Enter behavior
+            const selection = window.getSelection();
+            const range = selection.getRangeAt(0);
+
+            // Insert a newline at the caret position
+            const newlineNode = document.createTextNode("\n");
+            range.insertNode(newlineNode);
+
+            // Move the caret to the end of the newline
+            range.setStartAfter(newlineNode);
+            range.setEndAfter(newlineNode);
+            selection.removeAllRanges();
+            selection.addRange(range);
+        }
+    });
 
     // Disable the editor and button initially
     editor.contentEditable = "false";
@@ -52,7 +54,7 @@ async function initializePythonPlayground() {
         editor.innerText = ""; // Clear the editor for user input
         runButton.disabled = false;
 
-        // Redirect stdout and stderr to capture output
+        // Redirect stdout and stderr in Pyodide
         let outputBuffer = "";
         function redirectOutput(text) {
             outputBuffer += text;
@@ -84,7 +86,9 @@ async function initializePythonPlayground() {
                 await pyodide.runPythonAsync(code);
                 output.innerText = outputBuffer || "Code executed successfully.";
             } catch (error) {
-                output.innerText = `Error: ${error.message}`;
+                // Extract the actual error message (last line of the stack trace)
+                const errorMessage = error.message.split("\n").pop();
+                output.innerText = `Error: ${errorMessage}`;
             }
         });
     } catch (error) {
