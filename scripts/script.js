@@ -1,101 +1,141 @@
-async function initializePythonPlayground() {
+
+// Get canvas and context
+const canvas = document.getElementById('nodeCanvas');
+const ctx = canvas.getContext('2d');
+
+// Set canvas dimensions
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+// Recalculate canvas size on window resize
+window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    initializeNodes(); // Reinitialize nodes on resize
+});
+
+// Node settings
+const nodeCount = 100;
+const nodeRadius = 3;
+const connectionDistance = 100;
+let nodes = [];
+
+// Create nodes
+function initializeNodes() {
+    nodes = [];
+    for (let i = 0; i < nodeCount; i++) {
+        nodes.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            vx: (Math.random() - 0.5) * 2, // Velocity in X
+            vy: (Math.random() - 0.5) * 2, // Velocity in Y
+        });
+    }
+}
+
+// Draw a single node
+function drawNode(node) {
+    ctx.beginPath();
+    ctx.arc(node.x, node.y, nodeRadius, 0, Math.PI * 2);
+    ctx.fillStyle = '#ffffff'; // Node color
+    ctx.fill();
+}
+
+// Draw connection lines between close nodes
+function drawConnections() {
+    for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+            const distance = getDistance(nodes[i], nodes[j]);
+            if (distance < connectionDistance) {
+                ctx.beginPath();
+                ctx.moveTo(nodes[i].x, nodes[i].y);
+                ctx.lineTo(nodes[j].x, nodes[j].y);
+                ctx.strokeStyle = `rgba(255, 255, 255, ${1 - distance / connectionDistance})`; // Fade line as distance increases
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+        }
+    }
+}
+
+// Calculate distance between two points
+function getDistance(p1, p2) {
+    const dx = p1.x - p2.x;
+    const dy = p1.y - p2.y;
+    return Math.sqrt(dx * dx + dy * dy);
+}
+
+// Update node positions
+function updateNodes() {
+    nodes.forEach((node) => {
+        node.x += node.vx;
+        node.y += node.vy;
+
+        // Bounce off edges
+        if (node.x <= 0 || node.x >= canvas.width) node.vx *= -1;
+        if (node.y <= 0 || node.y >= canvas.height) node.vy *= -1;
+    });
+}
+
+// Main animation loop
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
+    nodes.forEach(drawNode); // Draw nodes
+    drawConnections(); // Draw connections
+    updateNodes(); // Update node positions
+    requestAnimationFrame(animate); // Repeat animation
+}
+
+// Initialize and start animation
+initializeNodes();
+animate();
+
+function initializePythonPlayground() {
     const editor = document.getElementById("editor");
     const output = document.getElementById("output");
     const runButton = document.getElementById("runButton");
 
-    // Check if the editor element exists
     if (!editor || !output || !runButton) {
         console.log("Python Playground elements not found. Skipping initialization.");
         return;
     }
 
-    // Prevent new div creation when pressing Enter
-    editor.addEventListener("keydown", function (event) {
-        if (event.key === "Enter") {
-            event.preventDefault(); // Prevent the default Enter behavior
-            const selection = window.getSelection();
-            const range = selection.getRangeAt(0);
-
-            // Insert a newline at the caret position
-            const newlineNode = document.createTextNode("\n");
-            range.insertNode(newlineNode);
-
-            // Move the caret to the end of the newline
-            range.setStartAfter(newlineNode);
-            range.setEndAfter(newlineNode);
-            selection.removeAllRanges();
-            selection.addRange(range);
-        }
-    });
+    // Initialize Web Worker
+    const worker = new Worker("scripts/pyodideWorker.js");
 
     // Disable the editor and button initially
     editor.contentEditable = "false";
-    editor.innerText = "Loading resources...";
+    editor.innerText = "Loading resources...(this may take a while)";
     runButton.disabled = true;
 
-    let pyodide;
+    worker.postMessage({ type: "loadPyodide" });
 
-    try {
-        // Load Pyodide with a timeout
-        const pyodidePromise = loadPyodide();
-        const timeoutPromise = new Promise((_, reject) =>
-            setTimeout(() => reject(new Error("Timeout")), 30000)
-        );
-
-        pyodide = await Promise.race([pyodidePromise, timeoutPromise]);
-
-        // Pyodide loaded successfully
-        console.log("Pyodide loaded!");
-        editor.innerText = "Resources loaded!";
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second
-
-        // Enable the editor and button
-        editor.contentEditable = "true";
-        editor.innerText = ""; // Clear the editor for user input
-        runButton.disabled = false;
-
-        // Redirect stdout and stderr in Pyodide
-        let outputBuffer = "";
-        function redirectOutput(text) {
-            outputBuffer += text;
+    // Handle worker messages
+    worker.onmessage = (event) => {
+        const { type, payload } = event.data;
+    
+        if (type === "loaded") {
+            console.log(payload);
+            editor.innerText = "Resources loaded!";
+            setTimeout(() => {
+                editor.contentEditable = "true";
+                editor.innerText = ""; // Clear the editor for user input
+                runButton.disabled = false;
+            }, 1000);
+        } else if (type === "result") {
+            output.innerText = payload || "Code executed successfully.";
+        } else if (type === "error") {
+            output.innerText = `Error: ${payload}`;
+            console.error(payload); // Log the error for debugging
         }
-        pyodide.globals.set("redirectOutput", redirectOutput);
-        pyodide.runPython(`
-            import sys
-            class OutputRedirector:
-                def __init__(self, write_func):
-                    self.write_func = write_func
+    };    
 
-                def write(self, text):
-                    self.write_func(text)
-
-                def flush(self):
-                    pass
-
-            sys.stdout = OutputRedirector(redirectOutput)
-            sys.stderr = OutputRedirector(redirectOutput)
-        `);
-
-        // Handle code execution
-        runButton.addEventListener("click", async () => {
-            const code = editor.innerText;
-            output.innerText = ""; // Clear previous output
-            outputBuffer = ""; // Clear the buffer
-
-            try {
-                await pyodide.runPythonAsync(code);
-                output.innerText = outputBuffer || "Code executed successfully.";
-            } catch (error) {
-                // Extract the actual error message (last line of the stack trace)
-                const errorMessage = error.message.split("\n").pop();
-                output.innerText = `Error: ${errorMessage}`;
-            }
-        });
-    } catch (error) {
-        console.error("Failed to load Pyodide:", error);
-        editor.innerText = "Resources cannot be loaded at the moment, please check back later ):";
-        runButton.disabled = true;
-    }
+    // Handle code execution
+    runButton.addEventListener("click", () => {
+        const code = editor.innerText;
+        output.innerText = "Executing...";
+        worker.postMessage({ type: "runCode", payload: code });
+    });
 }
 
 // Initialize the Python Playground
