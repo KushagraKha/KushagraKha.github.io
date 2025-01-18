@@ -6,28 +6,32 @@
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script type="module" src="/src/main.js"></script>
-  <title>Vite App</title>
+  <title>Kushagra's Portfolio</title>
 </head>
 
 <body>
+  <div class="sticky top-0 z-10">
+    <ul class="flex w-full justify-center items-center gap-8 bg-black p-4 rounded-xl shadow-blue/50 border-b-4 border-blue">
+      <li class="text-lg"><a href="#About" class="text-blue font-bold hover:underline hover:text-green decoration-4 underline-offset-4">About</a></li>
+      <li class="text-lg"><a href="#Projects" class="text-blue font-bold hover:underline hover:text-green decoration-4 underline-offset-4">Projects</a></li>
+      <li class="text-lg"><a href="#Contact" class="text-blue font-bold hover:underline hover:text-green decoration-4 underline-offset-4">Contact</a></li>
+      <li class="text-lg"><a href="#Blog" class="text-blue font-bold hover:underline hover:text-green decoration-4 underline-offset-4">Blog</a></li>
+    </ul>
+  </div>
+
   <div style="
       -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); z-index: 1;"
-    class=" bg-gradient-to-b from-blue/30 to-green/30 max-w-screen-xl p-16 mx-auto my-16 z-1 rounded-xl border-b-4 border-green">
+    class=" bg-gradient-to-b from-blue/30 to-green/30 max-w-screen-xl p-16 mx-auto my-16 rounded-xl border-b-4 border-green">
     <div class="flex flex-col justify-center items-center gap-8 mx-auto pt-16 bg-black-800 w-1/2">
       <h1 class="text-8xl drop-shadow-lg shadow-blue">Kushgara Khare</h1>
       <h2 class="text-3xl">Software Engineer</h2>
-      <ul class="flex w-full justify-center items-center gap-8 bg-black p-4 rounded-xl shadow-blue/50 border-b-4 border-blue">
-        <li class="text-lg"><a href="#About" class="text-blue font-bold hover:underline hover:text-green decoration-4 underline-offset-4">About</a></li>
-        <li class="text-lg"><a href="#Projects" class="text-blue font-bold hover:underline hover:text-green decoration-4 underline-offset-4">Projects</a></li>
-        <li class="text-lg"><a href="#Contact" class="text-blue font-bold hover:underline hover:text-green decoration-4 underline-offset-4">Contact</a></li>
-        <li class="text-lg"><a href="#Blog" class="text-blue font-bold hover:underline hover:text-green decoration-4 underline-offset-4">Blog</a></li>
-      </ul>
+      <div class="m-16"></div>
     </div>
   </div>
 
   <div style="
       -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); z-index: 1;"
-    class=" bg-gradient-to-b from-black/30 to-blue/30 max-w-screen-xl p-16 mx-auto my-16 z-1 rounded-xl border-b-4 border-blue">
+    class=" bg-gradient-to-b from-black/30 to-blue/30 max-w-screen-xl p-16 mx-auto my-16 rounded-xl border-b-4 border-blue">
     <div class="mx-auto my-8">
       <h1 class="text-8xl drop-shadow-lg shadow-blue text-center">About Me</h1>
     </div>
@@ -37,11 +41,19 @@
     </div>
   </div>
 
-  <canvas id="nodeCanvas" style="position: absolute;
-      top: 0;
-      left: 0;
-      z-index: -1;">
-  </canvas>
+  <div style="
+      -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); z-index: 1;"
+    class=" bg-gradient-to-b from-black/30 to-green/30 max-w-screen-xl p-16 mx-auto my-16 rounded-xl border-b-4 border-green">
+    <div class="mx-auto my-8">
+      <h1 class="text-8xl drop-shadow-lg shadow-green text-center">Projects</h1>
+    </div>
+    <div class="flex w-full gap-8 my-8">
+      <img class="rounded-full" src="/public/me.jpg" alt="this is me!">
+      <p class="text-lg">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad voluptatibus perspiciatis maxime natus dignissimos, obcaecati iusto eveniet ducimus nam molestiae qui minima placeat, dolores est quisquam, provident soluta veniam fuga sint numquam neque inventore facere animi doloribus. Eum perferendis cum dolorem, minus tempora, fugiat cupiditate perspiciatis autem id aperiam facilis voluptate dolores sequi. Eius repellat ratione rerum dolorem mollitia, magni placeat, sunt quos tempora perspiciatis ab culpa cumque, quas animi nesciunt ducimus a itaque dolorum expedita odio. Tempore corporis magnam culpa omnis odio perferendis veniam repellat itaque quis esse earum dolor ut, neque ad voluptas nam ullam! Ea quisquam velit dolorum distinctio ipsum officiis, nulla id perspiciatis rerum aperiam omnis obcaecati iusto eos minus architecto quaerat ducimus sapiente enim. Neque, incidunt repellendus dolor deleniti doloremque nemo corrupti maiores illum minima facilis iusto error corporis vitae veniam libero, culpa, nihil quidem voluptas nisi. Molestiae ad rem quam excepturi magnam architecto earum.</p>
+    </div>
+  </div>
+
+  <canvas id="nodeCanvas" style="position: fixed; top: 0; left: 0; z-index: -1; width: 100vw;"></canvas>
 </body>
 
 </html>
