@@ -4,18 +4,20 @@
 <head>
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script type="module" src="/src/main.js"></script>
+  <script type="module" src="/src/background.js"></script>
+  <script type="text/javascript" src="/src/index.js"></script>
   <title>Kushagra's Portfolio</title>
 </head>
 
 <body>
-  <div class="sticky top-0 z-10">
-    <ul class="flex w-full justify-center items-center gap-8 bg-black p-4 rounded-xl shadow-blue/50 border-b-4 border-blue">
-      <li class="text-lg"><a href="#About" class="text-blue font-bold hover:underline hover:text-green decoration-4 underline-offset-4">About</a></li>
-      <li class="text-lg"><a href="#Projects" class="text-blue font-bold hover:underline hover:text-green decoration-4 underline-offset-4">Projects</a></li>
-      <li class="text-lg"><a href="#Contact" class="text-blue font-bold hover:underline hover:text-green decoration-4 underline-offset-4">Contact</a></li>
-      <li class="text-lg"><a href="#Blog" class="text-blue font-bold hover:underline hover:text-green decoration-4 underline-offset-4">Blog</a></li>
+  <div id="navbar" class="mt-2 px-4">
+    <ul class="navbar-items flex max-w-screen-sm mx-auto justify-center items-center gap-8 bg-black p-4 rounded-xl shadow-blue/50 border-b-4 border-blue">
+      <li class="text-lg"><a href="#about" class="text-blue font-bold hover:underline hover:text-green decoration-4 underline-offset-4">About</a></li>
+      <li class="text-lg"><a href="#projects" class="text-blue font-bold hover:underline hover:text-green decoration-4 underline-offset-4">Projects</a></li>
+      <li class="text-lg"><a href="#contact" class="text-blue font-bold hover:underline hover:text-green decoration-4 underline-offset-4">Contact</a></li>
+      <li class="text-lg"><a href="#blog" class="text-blue font-bold hover:underline hover:text-green decoration-4 underline-offset-4">Blog</a></li>
     </ul>
   </div>
 
@@ -25,7 +27,7 @@
     <div class="flex flex-col justify-center items-center gap-8 mx-auto pt-16 bg-black-800 w-1/2">
       <h1 class="text-8xl drop-shadow-lg shadow-blue">Kushgara Khare</h1>
       <h2 class="text-3xl">Software Engineer</h2>
-      <div class="m-16"></div>
+      <div id="navHome" class="m-16"></div>
     </div>
   </div>
 
@@ -33,9 +35,9 @@
       -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); z-index: 1;"
     class=" bg-gradient-to-b from-black/30 to-blue/30 max-w-screen-xl p-16 mx-auto my-16 rounded-xl border-b-4 border-blue">
     <div class="mx-auto my-16">
-      <h1 class="text-8xl drop-shadow-lg shadow-blue text-center">About Me</h1>
+      <h2 id="about" class="text-8xl drop-shadow-lg shadow-blue text-center">About Me</h1>
     </div>
-    <div class="flex w-full gap-8">
+    <div id="About" class="flex flex-col lg:flex-row w-full gap-8">
       <img class="rounded-full border-8 border-blue" src="/public/me.jpg" alt="this is me!">
       <p class="text-lg">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad voluptatibus perspiciatis maxime natus dignissimos, obcaecati iusto eveniet ducimus nam molestiae qui minima placeat, dolores est quisquam, provident soluta veniam fuga sint numquam neque inventore facere animi doloribus. Eum perferendis cum dolorem, minus tempora, fugiat cupiditate perspiciatis autem id aperiam facilis voluptate dolores sequi. Eius repellat ratione rerum dolorem mollitia, magni placeat, sunt quos tempora perspiciatis ab culpa cumque, quas animi nesciunt ducimus a itaque dolorum expedita odio. Tempore corporis magnam culpa omnis odio perferendis veniam repellat itaque quis esse earum dolor ut, neque ad voluptas nam ullam! Ea quisquam velit dolorum distinctio ipsum officiis, nulla id perspiciatis rerum aperiam omnis obcaecati iusto eos minus architecto quaerat ducimus sapiente enim. Neque, incidunt repellendus dolor deleniti doloremque nemo corrupti maiores illum minima facilis iusto error corporis vitae veniam libero, culpa, nihil quidem voluptas nisi. Molestiae ad rem quam excepturi magnam architecto earum.</p>
     </div>
@@ -45,10 +47,10 @@
       -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); z-index: 1;"
     class=" bg-gradient-to-b from-black/30 to-green/30 max-w-screen-xl p-16 mx-auto my-16 rounded-xl border-b-4 border-green">
     <div class="mx-auto my-16">
-      <h1 class="text-8xl drop-shadow-lg shadow-green text-center">Projects</h1>
+      <h2 id="projects" class="text-8xl drop-shadow-lg shadow-green text-center">Projects</h1>
     </div>
     <div class="grid grid-cols-1 gap-8 my-8">
-      <div class="flex gap-8 bg-black p-8 rounded-xl border-b-4 border-green">
+      <div class="flex flex-col lg:flex-row gap-8 bg-black p-8 rounded-xl border-b-4 border-green">
         <img class="border-4 border-green rounded-lg w-64 h-64" src="/public/me.jpg" alt="this is me!">
         <div class="flex flex-col gap-2">
           <h3 class="text-4xl font-semibold">Project Title</h3>
@@ -56,7 +58,7 @@
           <p class="text-lg">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maxime eum modi, iusto corporis totam, rem quos cumque quis incidunt necessitatibus voluptas doloremque animi veritatis recusandae consectetur fuga nihil ipsa repellat? Nulla odio dolores hic quasi dolorum dolorem ut ratione nam perferendis adipisci maiores vel quidem dicta, quos velit. Recusandae, exercitationem.</p>
         </div>
       </div>
-      <div class="flex gap-8 bg-black p-8 rounded-xl border-b-4 border-green">
+      <div class="flex flex-col-reverse items-end lg:flex-row gap-8 bg-black p-8 rounded-xl border-b-4 border-green">
         <div class="flex flex-col gap-2 items-end">
           <h3 class="text-4xl font-semibold">Project Title</h3>
           <h4 class="text-xl italic">dd/mm/yyyy</h4>
@@ -64,7 +66,7 @@
         </div>
         <img class="border-4 border-green rounded-lg w-64 h-64" src="/public/me.jpg" alt="this is me!">
       </div>
-      <div class="flex gap-8 bg-black p-8 rounded-xl border-b-4 border-green">
+      <div class="flex flex-col lg:flex-row gap-8 bg-black p-8 rounded-xl border-b-4 border-green">
         <img class="border-4 border-green rounded-lg w-64 h-64" src="/public/me.jpg" alt="this is me!">
         <div class="flex flex-col gap-2">
           <h3 class="text-4xl font-semibold">Project Title</h3>
@@ -74,6 +76,65 @@
       </div>
     </div>
   </div>
+
+  <div style="
+      -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); z-index: 1;"
+    class=" bg-gradient-to-b from-black/30 to-blue/30 max-w-screen-xl p-16 mx-auto my-16 rounded-xl border-b-4 border-blue">
+    <div class="mx-auto my-16">
+      <h2 id="contact" class="text-8xl drop-shadow-lg shadow-blue text-center">Contact Me</h1>
+      <div class="max-w-screen-lg mx-auto my-8">
+        <p class="text-4xl text-center">You can contact me here with these links below:</p>
+        <div class="flex flex-col lg:flex-row gap-2 my-8 justify-around">
+          <a class="text-4xl p-4 bg-black border-b-4 border-blue rounded-xl" href="mailto:khare98@gmail.com"><i class="fa-solid fa-envelope pr-4"></i>khare98@gmail.com</a>
+          <a class="text-4xl p-4 bg-black border-b-4 border-blue rounded-xl" href="https://www.linkedin.com/in/kushagra-k/"><i class="fa-brands fa-linkedin pr-4"></i>linkedIn</a>
+        </div>
+      </div>
+    </div>
+      
+    </div>
+  </div>
+
+  <div style="
+      -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); z-index: 1;"
+    class=" bg-gradient-to-b from-black/30 to-green/30 max-w-screen-xl p-16 mx-auto my-16 rounded-xl border-b-4 border-green">
+    <div class="mx-auto my-16">
+      <h2 id="blog" class="text-8xl drop-shadow-lg shadow-green text-center">Blog</h1>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div>
+        <div class="flex flex-col rounded-xl border-4 border-green">
+          <img class="w-full h-1/2 aspect-square" src="/public/me.jpg" alt="this is me!">
+          <div class="flex flex-col gap-4 p-8 bg-black">
+            <h4>Blog Title</h4>
+            <p>Blog description Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem repudiandae consequuntur voluptatibus sequi aliquid, ea debitis, facilis esse ipsum itaque, accusantium reprehenderit beatae dolorum aliquam.</p>
+            <a class="underline text-blue" href="/articles/blogtitle.html">Read more.</a>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="flex flex-col rounded-xl border-4 border-green">
+          <img class="w-full h-1/2 aspect-square" src="/public/me.jpg" alt="this is me!">
+          <div class="flex flex-col gap-4 p-8 bg-black">
+            <h4>Blog Title</h4>
+            <p>Blog description Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem repudiandae consequuntur voluptatibus sequi aliquid, ea debitis, facilis esse ipsum itaque, accusantium reprehenderit beatae dolorum aliquam.</p>
+            <a class="underline text-blue" href="/articles/blogtitle.html">Read more.</a>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="flex flex-col rounded-xl border-4 border-green">
+          <img class="w-full h-1/2 aspect-square" src="/public/me.jpg" alt="this is me!">
+          <div class="flex flex-col gap-4 p-8 bg-black">
+            <h4>Blog Title</h4>
+            <p>Blog description Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem repudiandae consequuntur voluptatibus sequi aliquid, ea debitis, facilis esse ipsum itaque, accusantium reprehenderit beatae dolorum aliquam.</p>
+            <a class="underline text-blue" href="/articles/blogtitle.html">Read more.</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  
 
   <canvas id="nodeCanvas" style="position: fixed; top: 0; left: 0; z-index: -1; width: 100vw;"></canvas>
 </body>
